@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sorteo de Habitaciones</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      animation: aparecer 1.5s ease;
+    }
+    .formulario {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      width: 300px;
+      animation: aparecer 2s ease;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .resultado {
+      background: #ffffffcc;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      display: none;
+      animation: aparecerResultado 1.5s ease forwards;
+    }
+    @keyframes aparecer {
+      0% { opacity: 0; transform: translateY(-30px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes aparecerResultado {
+      0% { opacity: 0; transform: scale(0.8);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sorteo de Habitaciones</h1>
+
+  <div class="formulario">
+    <input type="text" id="nombre1" placeholder="Nombre Habitación 1" value="Abril">
+    <input type="text" id="nombre2" placeholder="Nombre opción 1" value="Miguel">
+    <input type="text" id="nombre3" placeholder="Nombre opción 2" value="Carla">
+    <button onclick="realizarSorteo()">¡Realizar sorteo!</button>
+  </div>
+
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    function realizarSorteo() {
+      const nombre1 = document.getElementById('nombre1').value.trim() || "Abril";
+      const opcion1 = document.getElementById('nombre2').value.trim() || "Miguel";
+      const opcion2 = document.getElementById('nombre3').value.trim() || "Carla";
+
+      const habitacion1 = nombre1;
+      let habitacion2 = Math.random() < 0.5 ? opcion1 : opcion2;
+      let habitacion3 = habitacion2 === opcion1 ? opcion2 : opcion1;
+
+      // Mostrar resultados
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.style.display = "block";
+      resultadoDiv.innerHTML = `
+        Habitación 1: ${habitacion1} <br><br>
+        Habitación 2: ${habitacion2} <br><br>
+        Habitación 3: ${habitacion3}
+      `;
+    }
+  </script>
+
+</body>
+</html>
