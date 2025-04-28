@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sorteo de Habitaciones</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+    .resultado {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sorteo de Habitaciones</h1>
+
+  <div>
+    <label>Habitación 1 (Fijo): </label>
+    <input type="text" id="habitacion1" value="Abril"><br>
+
+    <label>Opciones Habitación 2 y 3: </label><br>
+    <input type="text" id="opcion1" value="Miguel">
+    <input type="text" id="opcion2" value="Carla"><br>
+
+    <button onclick="realizarSorteo()">Realizar sorteo</button>
+  </div>
+
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function realizarSorteo() {
+      const fijo = document.getElementById('habitacion1').value || "Abril";
+      const opcion1 = document.getElementById('opcion1').value || "Miguel";
+      const opcion2 = document.getElementById('opcion2').value || "Carla";
+
+      let participantes = {
+        1: fijo,
+        2: Math.random() < 0.5 ? opcion1 : opcion2,
+        3: Math.random() < 0.5 ? opcion1 : opcion2
+      };
+
+      // Evitar que la misma persona tenga la 2 y 3
+      if (participantes[2] === participantes[3]) {
+        participantes[3] = participantes[2] === opcion1 ? opcion2 : opcion1;
+      }
+
+      document.getElementById('resultado').innerHTML = `
+        Habitación 1: ${participantes[1]} <br>
+        Habitación 2: ${participantes[2]} <br>
+        Habitación 3: ${participantes[3]}
+      `;
+    }
+  </script>
+</body>
+</html>
